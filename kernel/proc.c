@@ -276,6 +276,12 @@ kfork(void)
   // copy saved user registers.
   *(np->trapframe) = *(p->trapframe);
 
+  // copy mask of system calls to disallow.
+  np->mask = p->mask;
+
+  // copy path for system calls to allow.
+  strncpy(np->mask_path, p->mask_path, MAXPATH);
+
   // Cause fork to return 0 in the child.
   np->trapframe->a0 = 0;
 

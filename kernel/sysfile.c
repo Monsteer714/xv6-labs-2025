@@ -313,6 +313,12 @@ sys_open(void)
   argint(1, &omode);
   if((n = argstr(0, path, MAXPATH)) < 0)
     return -1;
+  
+  // check if the path is allowed for this process   
+  //if (strncmp(path, myproc()->mask_path, MAXPATH) != 0 
+  //    && (omode & O_WRONLY || omode & O_RDWR)) {
+  //  return -1;
+  //}
 
   begin_op();
 
@@ -442,6 +448,12 @@ sys_exec(void)
   if(argstr(0, path, MAXPATH) < 0) {
     return -1;
   }
+
+  // check if the path is allowed for this process  
+  //if (strncmp(path, myproc()->mask_path, MAXPATH) != 0) {
+  //  return -1;
+  //}
+
   memset(argv, 0, sizeof(argv));
   for(i=0;; i++){
     if(i >= NELEM(argv)){
