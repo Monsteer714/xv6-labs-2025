@@ -15,6 +15,8 @@ main(int argc, char *argv[])
     exit(1);
   }
 
+  fprintf(2, "Allocated memory at %ld\n", (uint64) data);
+
   strcpy(data, "This may help.");
 
   strcpy(data + 16, argv[1]);

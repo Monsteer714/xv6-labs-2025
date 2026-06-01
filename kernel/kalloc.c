@@ -54,6 +54,7 @@ kfree(void *pa)
     panic("kfree");
 
 
+  //printf("kfree: freed 0x%x bytes from %s\n", PGSIZE, (char*)pa);
 #ifndef LAB_SYSCALL
   // Fill with junk to catch dangling refs.
   memset(pa, 1, PGSIZE);
@@ -83,6 +84,7 @@ kalloc(void)
     kmem.freelist = r->next;
   }
   release(&kmem.lock);
+  //printf("kalloc: allocated 0x%x bytes to %p\n", PGSIZE, (char*)r);
 #ifndef LAB_SYSCALL
   if(r)
     memset((char*)r, 5, PGSIZE); // fill with junk
